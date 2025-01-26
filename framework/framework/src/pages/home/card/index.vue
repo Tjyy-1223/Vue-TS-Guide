@@ -28,7 +28,7 @@
 import { useRouter } from 'vue-router';
 let $router = useRouter();
 const goDetail = () => {
-    $router.push({path: '/hospital'})
+    $router.push({path: '/hospital/register'})
 }
 
 </script>

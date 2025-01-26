@@ -17,12 +17,17 @@ import 'element-plus/dist/index.css'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
 
+// 引入pinia
+import pinia from './store'
+
 const app = createApp(App)
 // 全局组件
 app.component('FrameworkTop', FrameworkTop)
 app.component('FrameworkBottom', FrameworkBottom)
 // 安装 router
 app.use(router);
+// 应用 pinia
+app.use(pinia)
 // 安装 element plus
 app.use(ElementPlus,{
     locale: zhCn,
