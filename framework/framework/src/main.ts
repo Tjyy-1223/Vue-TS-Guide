@@ -6,9 +6,26 @@ import "./style/reset.scss"
 import FrameworkTop from './components/framework_top/index.vue';
 import FrameworkBottom from './components/framework_bottom/index.vue';
 
+// 引入路由
+import router from './router'
+// 引入 lementPlus
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+
+//引入国际化
+//@ts-ignore
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+
+
 const app = createApp(App)
 // 全局组件
 app.component('FrameworkTop', FrameworkTop)
 app.component('FrameworkBottom', FrameworkBottom)
+// 安装 router
+app.use(router);
+// 安装 element plus
+app.use(ElementPlus,{
+    locale: zhCn,
+})
 // 挂载
 app.mount('#app')

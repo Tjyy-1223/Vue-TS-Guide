@@ -5,7 +5,8 @@
 
        <!-- 展示路由组件的区域 -->
         <div class="content">
-          xxxxx
+          <!-- 展示路由组件 -->
+           <router-view></router-view>
         </div>
 
         <!-- 底部 -->

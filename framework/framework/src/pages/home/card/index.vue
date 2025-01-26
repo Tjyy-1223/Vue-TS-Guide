@@ -5,23 +5,28 @@
                 <div class="hospital_name">
                     北京医院
                 </div>
+                <!-- <div class="hospital_name">
+                    {{hospitalInfo.hostname}}
+                </div> -->
                 <div class="tip">
                     <div class="level">三级甲等</div>
                     <div class="time">2023</div>
                 </div>
             </div>
             <div class="right">
-
+                <img src="../../../assets/vue.svg">
             </div>
         </div>
     </el-card>
 </template>
 
 <script setup lang="ts">
+// 接受父组件属性
+// defineProps(['hospitalInfo']);
 
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="scss"> 
 .content{
     display: flex;
     justify-content: space-between;
