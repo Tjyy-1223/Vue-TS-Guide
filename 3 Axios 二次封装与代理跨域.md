@@ -539,3 +539,107 @@ const getLevel = (level: string) => {
 ```
 
 在这段代码中，`v-if="1 > 0"` 是一个 Vue 指令，它用于条件渲染元素。`v-if` 会根据其后面的表达式值来决定是否渲染该元素。如果表达式的值为 `true`，则渲染该元素；如果为 `false`，则不渲染该元素。
+
+
+
+## 4 点击卡片后进行路由跳转
+
+### 4.1 点击首页卡片进行跳转
+
+framework/src/pages/home/card/index.vue
+
+```vue
+<template>
+    <!-- el-card 是 Element Plus 提供的卡片组件，这里使用了 box-card 样式并且设置了 hover 效果 -->
+    <!-- @click="goDetail()" 监听点击事件，当用户点击卡片时调用 goDetail 方法 -->
+    <el-card class="box-card" shadow="hover" @click="goDetail()">
+        ...
+    </el-card>
+</template>
+
+<script setup lang="ts">
+
+// 引入 Vue Router 的 useRouter 钩子，用来访问路由对象
+import { useRouter } from 'vue-router';
+
+// 使用 useRouter 钩子获取到路由对象，这里命名为 $router
+let $router = useRouter();
+
+// 定义一个 goDetail 方法，当点击卡片时调用该方法
+const goDetail = () => {
+    // 使用 $router.push() 方法跳转到 '/hospital' 路径，路由会进行页面导航
+    // 这里的路径 '/hospital' 是目标医院详情页面的路径
+    $router.push({ path: '/hospital' });
+}
+
+</script>
+
+<style scoped lang="scss"> 
+/* 此处可添加样式，例如对 .box-card 或其他元素的样式进行调整 */
+</style>
+
+```
+
+**`<el-card>` 组件**：
+
+- `el-card` 是 Element Plus 提供的卡片组件，`class="box-card"` 设置了该卡片的样式，`shadow="hover"` 设置卡片的阴影效果，当鼠标悬停在卡片上时会出现阴影效果。
+- `@click="goDetail()"` 为点击事件监听器，当用户点击该卡片时，会触发 `goDetail` 方法。
+
+**`useRouter`**：
+
+- `useRouter()` 是 Vue Router 提供的一个钩子，用来获取路由实例，在这里用它来进行路由跳转。
+- `let $router = useRouter()` 将路由实例赋值给 `$router` 变量，供后续使用。
+
+**`goDetail` 方法**：
+
+- `goDetail` 方法会在用户点击卡片时执行，通过调用 `$router.push({ path: '/hospital' })` 实现页面跳转。
+- 这里的 `/hospital` 是目标路径，表示跳转到医院详情页面。
+
+<style scoped>：
+
+- `scoped` 修饰符确保样式只作用于当前组件，不会影响全局样式。
+- `lang="scss"` 表明该样式文件使用 SCSS 语法。
+
+<img src="./assets/image-20250126112516461.png" alt="image-20250126112516461" style="zoom:50%;" />
+
+
+
+<img src="./assets/image-20250126112535905.png" alt="image-20250126112535905" style="zoom:50%;" />
+
+
+
+### 4.2 点击左上角返回主页
+
+点击全局组件的左上角可以返回
+
+framework/src/components/framework_top/index.vue 
+
+```vue
+<template>
+    <div class="top">
+        <div class="content">
+            <!-- 左侧 -->
+             <div class="left" @click="goHome">
+               ...
+             </div>
+             <!-- 右侧 -->
+             <div class="right">
+               ...
+             </div>
+        </div>
+    </div>
+</template>
+
+<script setup lang="ts">
+import { useRouter } from 'vue-router';
+let $router = useRouter();
+const goHome = () => {
+    $router.push({path: '/home'})
+}
+</script>
+
+<style scoped lang="scss">
+
+</style>
+```
+

@@ -2,7 +2,7 @@
     <div class="top">
         <div class="content">
             <!-- 左侧 -->
-             <div class="left">
+             <div class="left" @click="goHome">
                 <img src="../../assets/vue.svg" alt="">
                 <p>框架 - 统一管理平台</p>
              </div>
@@ -16,7 +16,11 @@
 </template>
 
 <script setup lang="ts">
-
+import { useRouter } from 'vue-router';
+let $router = useRouter();
+const goHome = () => {
+    $router.push({path: '/home'})
+}
 </script>
 
 <style scoped lang="scss">
