@@ -25,7 +25,7 @@
                 </div>
             </el-col>
             <el-col :span="4">
-
+                <Tip></Tip>
             </el-col>
         </el-row>
     </div>
@@ -38,6 +38,7 @@ import HomeSearch from './search/index.vue'
 import Level from './level/index.vue'
 import Region from './region/index.vue'
 import Card from './card/index.vue'
+import Tip from './tip/index.vue'
 
 // 引入组合式 API
 import {onMounted, ref} from "vue"
