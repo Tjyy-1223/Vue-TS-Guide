@@ -11,6 +11,9 @@
 
         <!-- 底部 -->
          <FrameworkBottom/>
+
+         <!-- 全局登陆组件 -->
+          <Login/>
   </div>
 </template>
 
