@@ -32,7 +32,7 @@
                                 </el-form>
 
                                 <!-- 用户登录按钮 -->
-                                <el-button style="width: 100%" type="primary" size="default">
+                                <el-button style="width: 100%" type="primary" size="default" :disabled="!isPhone || loginParam.code.length < 6" @click="login">
                                     用户登录
                                 </el-button>
 
@@ -82,6 +82,7 @@ let useStore = useUserStore();
 
 // 导入 Element Plus 图标组件
 import { User, Lock, Phone } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus';
 
 // 导入 Vue 相关功能
 import { defineComponent, ref, reactive, computed } from 'vue';
@@ -123,6 +124,21 @@ let flag = ref<boolean>(false);
 // 倒计时组件控制器，父组件接收子组件传递的 flag 值来控制倒计时是否结束
 const getFlag = (val : boolean) => {
     flag.value = val;
+}
+
+// 用户登录按钮设计
+const login = () => {
+    // 1. 登陆成功：顶部组件展示名字 + 对话框关闭
+    // 2. 登陆失败： 弹出对应登陆失败的错误信息
+    try{
+        useStore.userLogin(loginParam);
+        useStore.visiable = false;
+    }catch(error){
+        ElMessage({
+            type: 'error',
+            message: (error as Error).message
+        })
+    }
 }
 </script>
 
