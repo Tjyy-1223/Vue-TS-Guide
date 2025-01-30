@@ -13,11 +13,13 @@
          <FrameworkBottom/>
 
          <!-- 全局登陆组件 -->
-          <Login/>
+          <Login v-if="userStore.visiable"/>
   </div>
 </template>
 
 <script setup lang="ts">
+import useUserStore from './store/modules/user';
+let userStore = useUserStore();
 
 </script>
 

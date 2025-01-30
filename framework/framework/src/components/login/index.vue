@@ -2,7 +2,7 @@
     <!-- 登录容器 -->
     <div class="login_container">
         <!-- Element Plus 弹窗，v-model 双向绑定控制显示/隐藏 -->
-        <el-dialog v-model="useStore.visiable" title="用户登录">
+        <el-dialog v-model="useStore.visiable" title="用户登录" ref="dialog" @close="close">
             <div class="content">
                 <!-- 两列布局，左侧表单，右侧内容 -->
                 <el-row>
@@ -11,13 +11,13 @@
                         <div class="login">
                             <!-- 当 scene 值为 0 时显示手机号登录表单 -->
                             <div v-show="scene == 0">
-                                <el-form>
+                                <el-form :model="loginParam" :rules="rules" ref="form">
                                     <!-- 手机号输入框 -->
-                                    <el-form-item>
+                                    <el-form-item prop="phone">
                                         <el-input placeholder="请你输入手机号码" :prefix-icon="User" v-model="loginParam.phone"></el-input>
                                     </el-form-item>
                                     <!-- 验证码输入框 -->
-                                    <el-form-item>
+                                    <el-form-item prop="code">
                                         <el-input placeholder="请你输入手机验证码" :prefix-icon="Lock" v-model="loginParam.code"></el-input>
                                     </el-form-item>
                                     <!-- 获取验证码按钮 -->
@@ -69,7 +69,7 @@
 
             <!-- 自定义弹窗底部按钮 -->
             <template #footer>
-                <el-button type="primary" size="default">关闭窗口</el-button>
+                <el-button type="primary" size="default" @click="closeDialog">关闭窗口</el-button>
             </template>
         </el-dialog>
     </div>
@@ -127,19 +127,65 @@ const getFlag = (val : boolean) => {
 }
 
 // 用户登录按钮设计
-const login = () => {
+const login = async () => {  // 在函数前加上 async
     // 1. 登陆成功：顶部组件展示名字 + 对话框关闭
     // 2. 登陆失败： 弹出对应登陆失败的错误信息
-    try{
-        useStore.userLogin(loginParam);
-        useStore.visiable = false;
-    }catch(error){
+    try {
+        await useStore.userLogin(loginParam);  // 使用 await 时，函数必须是 async
+        useStore.visiable = false;  // 关闭对话框
+    } catch (error) {
         ElMessage({
             type: 'error',
-            message: (error as Error).message
-        })
+            message: (error as Error).message  // 异常信息提示
+        });
     }
 }
+
+
+let form = ref<any>()
+
+
+// 手机号验证
+const valiedatorPhone = (rule: any, value: string, callBack: (error?: Error) => void) => {
+    const phoneRegex = /^1[3-9]\d{9}$/;
+    if (value && phoneRegex.test(value)) {
+        callBack();  // 验证成功
+    } else {
+        callBack(new Error('请输入正确的手机号码格式'));  // 验证失败
+    }
+}
+
+// 验证码验证
+const valiedatorCode = (rule: any, value: string, callBack: (error?: Error) => void) => {
+    const codeRegex = /^\d{6}$/;
+    if (value && codeRegex.test(value)) {
+        callBack();  // 验证成功
+    } else {
+        callBack(new Error('请输入正确的验证码格式'));  // 验证失败
+    }
+}
+
+// 表单校验规则
+const rules = {
+    phone: [{ trigger: 'blur', validator: valiedatorPhone, required: true }],
+    code: [{ trigger: 'blur', validator: valiedatorCode, required: true }]
+};
+
+// 关闭对话框的回调
+const close = () => {
+    Object.assign(loginParam, {phone:'', code: ''})
+    form.value.resetFileds();
+}
+
+// 关闭对话框的回调
+const closeDialog = () => {
+    useStore.visiable = false;
+    Object.assign(loginParam, {phone:'', code: ''})
+    form.value.resetFileds();
+}
+
+
+
 </script>
 
 <style scoped lang="scss">

@@ -28,6 +28,11 @@ const useUserStore = defineStore('User', {
                 // 如果验证码错误，返回一个拒绝的 Promise
                 return Promise.reject(new Error("incorrect code"));
             }
+        },
+
+        logout(){
+            this.userInfo = {name: '', token: ''};
+            localStorage.removeItem('USERINFO');
         }
     },
     
