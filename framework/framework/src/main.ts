@@ -18,9 +18,9 @@ import 'element-plus/dist/index.css'
 //@ts-ignore
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
-
 // 引入pinia
 import pinia from './store'
+import'./permission'
 
 const app = createApp(App)
 // 全局组件

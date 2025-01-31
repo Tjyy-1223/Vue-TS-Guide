@@ -9,7 +9,10 @@ export default createRouter({
         // 至少有两个路由
         {
             path: '/home',
-            component: () => import('../pages/home/index.vue')
+            component: () => import('../pages/home/index.vue'),
+            meta: {
+                title: '预约挂号',
+            }
         },
         {
             path: '/hospital',
