@@ -397,7 +397,9 @@ const changeActive = (path: string) => {
 - 右侧内容区域 (`content`)：
   - 使用 `<router-view>` 组件来显示路由的内容，`<router-view>` 会根据当前路由动态加载对应的页面组件。
 
+```
 <script setup> 部分：
+```
 
 - **图标导入**：从 `@element-plus/icons-vue` 中导入了多个图标组件，例如 `HomeFilled`、`Document`、`Search` 等。
 - 路由相关函数：
@@ -405,7 +407,9 @@ const changeActive = (path: string) => {
   - `useRouter()`：获取路由对象，允许程序控制路由跳转。
 - **`changeActive` 方法**：当点击菜单项时，通过调用 `$router.push()` 实现页面跳转，传入新的路径 `path`。
 
+```
 <style scoped> 部分：
+```
 
 - 使用 
 
